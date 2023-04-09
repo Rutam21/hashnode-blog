@@ -25,8 +25,65 @@ So, now we have a CSV file now that contains the News articles. The next thing w
     
 * Now select the CSV file that we have created, provide a Table name in the `Datasource Name` field and then click on the `Save and Continue` button.
     
-* Once the table is created successfully, execute the first query written on the MindsDB Cloud Editor to fetch all available tables.
+
+Once the table is created successfully, execute the first query written on the MindsDB Cloud Editor to fetch all available tables.
+
+```sql
+SHOW TABLES FROM files;
+```
+
+### **Understanding the data**
+
+Let's explore the data now in the table we just created to find out more details about it. Simply, execute the second query i.e., `Select` query, to get the records present in the table.
+
+```sql
+Select * from files.BBCNews LIMIT 10;
+```
+
+The table only contains one column.
+
+* article: This column contains the complete news article.
     
-    ```sql
-    SHOW TABLES FROM files;
-    ```
+
+## **Creating an OpenAI GPT-4 Model**
+
+We can now create an OpenAI model to extract summaries from news articles. However, `gtp-3.5-turbo` gets used by default for the model. So, when we write the query for model creation, we need to pass an extra parameter namely `model-name` to specify the model to use `gpt-4` explicitly.
+
+So, let's look at the SQL statement now.
+
+```sql
+CREATE MODEL MODEL_NAME
+PREDICT Target_Column_Name
+USING
+    engine = 'name_of_the_engine',
+    model-name = 'name_of_the_model',              
+    prompt_template = 'Provide an informative summary of the text text:{{input_column_name}} using full sentences.';
+```
+
+The actual query will become like this after replacing the placeholders with appropriate values.
+
+```sql
+CREATE MODEL news_summarizer
+PREDICT summary
+USING
+    engine = 'openai',
+    model-name = 'gpt-4'              
+    prompt_template = 'Provide an informative summary of the text text:{{article}} using full sentences';
+```
+
+This should return the row record of the specific model that we just created from the \`models\` table upon successful execution.
+
+# **Status of the Model**
+
+The model might take a while to be ready for use. In the meantime, we can check it's status with the query below.
+
+```sql
+SELECT status FROM models
+WHERE name = 'news_summarizer';
+```
+
+> ***MindsDB has recently organized a Hackathon in collaboration with Hashnode. You can check all the details by clicking on the banner below.***
+> 
+> [![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681064378865/db525fc7-637f-4600-b152-ffb278ab6e52.png align="center")](https://hashnode.com/hackathons/mindsdb)
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681064428416/ffe7278b-26fa-4844-90ec-6582dda88ab2.png align="center")](https://github.com/sponsors/Rutam21)
