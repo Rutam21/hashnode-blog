@@ -13,7 +13,7 @@ tags: 2articles1week, openai, mindsdb, gpt-4, mindsdbhackathon
 
 In today's information age, we are overwhelmed with an abundance of information that can be difficult to digest. As a result, text summarization has become increasingly important. Text summarization refers to the process of reducing a large amount of text to a shorter, more concise version while retaining the most essential information. In this tutorial, we will explore how to use MindsDB Cloud Editor and OpenAI GPT-4 to summarize BBC News articles.
 
-## **Data Setup**
+# **Data Setup**
 
 There are two ways to retrieve BBC news articles for this tutorial. We can either use the [**BBC News API**](https://newsapi.org/s/bbc-news-api) to fetch the articles in JSON format or we can simply gather the [articles](https://www.kaggle.com/datasets/pariza/bbc-news-summary) from Kaggle and combine them to form a CSV file for our use.
 
@@ -45,7 +45,7 @@ The table only contains one column.
 * article: This column contains the complete news article.
     
 
-## **Creating an OpenAI GPT-4 Model**
+# **Creating an OpenAI GPT-4 Model**
 
 We can now create an OpenAI model to extract summaries from news articles. However, `gtp-3.5-turbo` gets used by default for the model. So, when we write the query for model creation, we need to pass an extra parameter namely `model-name` to specify the model to use `gpt-4` explicitly.
 
