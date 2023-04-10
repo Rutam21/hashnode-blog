@@ -11,7 +11,7 @@ tags: 2articles1week, openai, mindsdb, gpt-4, mindsdbhackathon
 
 # Introduction
 
-In today's information age, we are overwhelmed with an abundance of information that can be difficult to digest. As a result, text summarization has become increasingly important. Text summarization refers to the process of reducing a large amount of text to a shorter, more concise version while retaining the most essential information. In this tutorial, we will explore how to use MindsDB Cloud Editor and OpenAI GPT-4 to summarize BBC News articles.
+In today's information age, we are overwhelmed with an abundance of information that can be difficult to digest. As a result, text summarization has become increasingly important. Text summarization refers to the process of reducing a large amount of text to a shorter, more concise version while retaining the most essential information. This tutorial will explore how to use MindsDB Cloud Editor and OpenAI GPT-4 to summarize BBC News articles.
 
 # **Data Setup**
 
@@ -19,7 +19,7 @@ There are two ways to retrieve BBC news articles for this tutorial. We can eithe
 
 ### Connecting the data
 
-So, now we have a CSV file now that contains the News articles. The next thing we want to do is to create a Table using this data. The following steps should create the table successfully.
+So, now we have a CSV file that contains the News articles. The next thing we want to do is to create a Table using this data. The following steps should create the table successfully.
 
 * Click on the `Add` button on the MindsDB Cloud Editor and then tap the `Upload File` button from the dropdown menu.
     
@@ -28,9 +28,15 @@ So, now we have a CSV file now that contains the News articles. The next thing w
 
 Once the table is created successfully, execute the first query written on the MindsDB Cloud Editor to fetch all available tables.
 
+![Query to fetch list of Tables](https://cdn.hashnode.com/res/hashnode/image/upload/v1681123134483/e8683363-ecad-43d3-b151-7a97d73b7984.png align="center")
+
 ```sql
 SHOW TABLES FROM files;
 ```
+
+The result should contain the list of tables available.
+
+![List of Tables](https://cdn.hashnode.com/res/hashnode/image/upload/v1681123297590/fa510ed3-5e05-4c4e-99a3-6fb018577789.png align="center")
 
 ### **Understanding the data**
 
@@ -40,10 +46,16 @@ Let's explore the data now in the table we just created to find out more details
 Select * from files.BBCNews LIMIT 10;
 ```
 
+The first 10 records from the table `BBCNews` are returned as shown below.
+
+![First 10 records of the Table](https://cdn.hashnode.com/res/hashnode/image/upload/v1681123554900/370a3ac8-659d-49f2-81a1-b971900d1800.png align="center")
+
 The table only contains one column.
 
-* article: This column contains the complete news article.
+* news\_articles: This column contains the complete news article.
     
+
+We will try to summarize the text in the `news_articles` column using the model we will be creating below.
 
 # **Creating an OpenAI GPT-4 Model**
 
