@@ -15,7 +15,9 @@ In today's information age, we are overwhelmed with an abundance of information 
 
 # **Data Setup**
 
-There are two ways to retrieve BBC news articles for this tutorial. We can either use the [**BBC News API**](https://newsapi.org/s/bbc-news-api) to fetch the articles in JSON format or we can simply gather the [articles](https://www.kaggle.com/datasets/pariza/bbc-news-summary) from Kaggle and combine them to form a CSV file for our use.
+There are two ways to retrieve BBC news articles for this tutorial. We can either use the [**BBC News API**](https://newsapi.org/s/bbc-news-api) to fetch the articles in JSON format or we can simply gather the [articles](https://www.kaggle.com/datasets/pariza/bbc-news-summary) from Kaggle in the form of a CSV file for our use.
+
+In this tutorial, we will be using the BBC news dataset that is available on Kaggle. You can download the dataset [**here**](https://www.kaggle.com/c/learn-ai-bbc/data). The dataset consists of 2225 news articles, each with a headline and body text.
 
 ### Connecting the data
 
@@ -69,19 +71,19 @@ PREDICT Target_Column_Name
 USING
     engine = 'name_of_the_engine',
     model-name = 'name_of_the_model',              
-    prompt_template = 'Provide an informative summary of the text text:{{input_column_name}} using full sentences.';
+    prompt_template = 'Summarize the following text in complete sentences. text:{{news_articles}}';
 ```
 
 The actual query will become like this after replacing the placeholders with appropriate values.
 
 ```sql
-Select * from 
 CREATE MODEL news_summarizer
 PREDICT summary
 USING
     engine = 'openai',
-    model_name = 'gpt-4',              
-    prompt_template = 'Provide an informative summary of the text text:{{news_articles}} using full sentences';
+    model_name = 'gpt-4',
+    max_tokens = 200,             
+    prompt_template = 'Summarize the following text in complete sentences. text:{{news_articles}}';
 ```
 
 This should return the row record of the specific model that we just created from the \`models\` table upon successful execution.
@@ -110,19 +112,32 @@ Here we will provide the model with a larger piece of text and then ask it to re
 ```sql
 SELECT news_articles, summary
 FROM news_summarizer
-WHERE news_articles = "Ink helps drive democracy in Asia
-The Kyrgyz Republic, a small, mountainous state of the former Soviet republic, is using invisible ink and ultraviolet readers in the country's elections as part of a drive to prevent multiple voting.
-This new technology is causing both worries and guarded optimism among different sectors of the population. In an effort to live up to its reputation in the 1990s as an island of democracy, the Kyrgyz President, Askar Akaev, pushed through the law requiring the use of ink during the upcoming Parliamentary and Presidential elections. The US government agreed to fund all expenses associated with this decision.
-The Kyrgyz Republic is seen by many experts as backsliding from the high point it reached in the mid-1990s with a hastily pushed through referendum in 2003, reducing the legislative branch to one chamber with 75 deputies. The use of ink is only one part of a general effort to show commitment towards more open elections - the German Embassy, the Soros Foundation and the Kyrgyz government have all contributed to purchase transparent ballot boxes.
-The actual technology behind the ink is not that complicated. The ink is sprayed on a person's left thumb. It dries and is not visible under normal light.
-However, the presence of ultraviolet light (of the kind used to verify money) causes the ink to glow with a neon yellow light. At the entrance to each polling station, one election official will scan voter's fingers with UV lamp before allowing them to enter, and every voter will have his/her left thumb sprayed with ink before receiving the ballot. If the ink shows under the UV light the voter will not be allowed to enter the polling station. Likewise, any voter who refuses to be inked will not receive the ballot. These elections are assuming even greater significance because of two large factors - the upcoming parliamentary elections are a prelude to a potentially regime changing presidential election in the Autumn as well as the echo of recent elections in other former Soviet Republics, notably Ukraine and Georgia. The use of ink has been controversial - especially among groups perceived to be pro-government.
-Widely circulated articles compared the use of ink to the rural practice of marking sheep - a still common metaphor in this primarily agricultural society.
-The author of one such article began a petition drive against the use of the ink. The greatest part of the opposition to ink has often been sheer ignorance. Local newspapers have carried stories that the ink is harmful, radioactive or even that the ultraviolet readers may cause health problems. Others, such as the aggressively middle of the road, Coalition of Non-governmental Organizations, have lauded the move as an important step forward. This type of ink has been used in many elections in the world, in countries as varied as Serbia, South Africa, Indonesia and Turkey. The other common type of ink in elections is indelible visible ink - but as the elections in Afghanistan showed, improper use of this type of ink can cause additional problems. The use of invisible ink is not without its own problems. In most elections, numerous rumors have spread about it.
-In Serbia, for example, both Christian and Islamic leaders assured their populations that its use was not contrary to religion. Other rumours are associated with how to remove the ink - various soft drinks, solvents and cleaning products are put forward. However, in reality, the ink is very effective at getting under the cuticle of the thumb and difficult to wash off. The ink stays on the finger for at least 72 hours and for up to a week. The use of ink and readers by itself is not a panacea for election ills. The passage of the inking law is, nevertheless, a clear step forward towards free and fair elections. The country's widely watched parliamentary elections are scheduled for 27 February.
-David Mikosz works for the IFES, an international, non-profit organisation that supports the building of democratic societies.";
+WHERE news_articles = "Dollar gains on Greenspan speech
+The dollar has hit its highest level against the euro in almost three months after the Federal Reserve head said the US trade deficit is set to stabilise.
+And Alan Greenspan highlighted the US government's willingness to curb spending and rising household savings as factors which may help to reduce it. In late trading in New York, the dollar reached $1.2871 against the euro, from $1.2974 on Thursday. Market concerns about the deficit has hit the greenback in recent months. On Friday, Federal Reserve chairman Mr Greenspan's speech in London ahead of the meeting of G7 finance ministers sent the dollar higher after it had earlier tumbled on the back of worse-than-expected US jobs data. I think the chairman's taking a much more sanguine view on the current account deficit than he's taken for some time, said Robert Sinche, head of currency strategy at Bank of America in New York. He's taking a longer-term view, laying out a set of conditions under which the current account deficit can improve this year and next.
+Worries about the deficit concerns about China do, however, remain. China's currency remains pegged to the dollar and the US currency's sharp falls in recent months have therefore made Chinese export prices highly competitive. But calls for a shift in Beijing's policy have fallen on deaf ears, despite recent comments in a major Chinese newspaper that the time is ripe for a loosening of the peg. The G7 meeting is thought unlikely to produce any meaningful movement in Chinese policy. In the meantime, the US Federal Reserve's decision on 2 February to boost interest rates by a quarter of a point - the sixth such move in as many months - has opened up a differential with European rates. The half-point window, some believe, could be enough to keep US assets looking more attractive, and could help prop up the dollar. The recent falls have partly been the result of big budget deficits, as well as the US's yawning current account gap, both of which need to be funded by the buying of US bonds and assets by foreign firms and governments. The White House will announce its budget on Monday, and many commentators believe the deficit will remain at close to half a trillion dollars.";
 ```
 
-So we have provided a really long text to the model now. Once the query gets executed successfully, we can get a short summary of it as shown below.
+So we have provided a long text to the model now. Once the query is executed successfully, we can get a summary as shown below.
+
+### Making Batch Summarizations
+
+Now we will try to summarize multiple news articles at once. For this, we will feed the `news_articles` column from the `BBCNews` table as input and add their summaries next to them and return this whole data as an output table.
+
+This can be done with the simple SQL query below.
+
+```sql
+SELECT input.news_articles, output.summary
+FROM files.BBCNews AS input
+JOIN news_summarizer AS output
+LIMIT 5;
+```
+
+This should return a table containing 5 rows that will have two columns in them i.e, `news_articles` and `summary` .
+
+# Conclusion
+
+In this tutorial, we explored how to use MindsDB Cloud Editor and OpenAI GPT-4 to summarize BBC News articles. We started by downloading the data from the BBC News dataset on Kaggle and then created a machine-learning model using MindsDB Cloud Editor and OpenAI GPT-4. We then checked the status of our model and made text summarizations.
 
 > ***MindsDB has recently organized a Hackathon in collaboration with Hashnode. You can check all the details by clicking on the banner below.***
 > 
