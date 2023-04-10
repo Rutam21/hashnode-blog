@@ -88,6 +88,8 @@ USING
 
 This should return the row record of the specific model that we just created from the \`models\` table upon successful execution.
 
+![Model Creation](https://cdn.hashnode.com/res/hashnode/image/upload/v1681146813072/00a8c49a-cbb3-4316-b113-272847560ac8.png align="center")
+
 # **Status of the Model**
 
 The model might take a while to be ready for use. In the meantime, we can check its status with the query below.
@@ -120,6 +122,8 @@ Worries about the deficit concerns about China do, however, remain. China's curr
 
 So we have provided a long text to the model now. Once the query is executed successfully, we can get a summary as shown below.
 
+![Single Summarization](https://cdn.hashnode.com/res/hashnode/image/upload/v1681147040523/211efd5d-6ffc-49fd-aaf1-9f651eb40fe7.png align="center")
+
 ### Making Batch Summarizations
 
 Now we will try to summarize multiple news articles at once. For this, we will feed the `news_articles` column from the `BBCNews` table as input and add their summaries next to them and return this whole data as an output table.
@@ -134,6 +138,8 @@ LIMIT 5;
 ```
 
 This should return a table containing 5 rows that will have two columns in them i.e, `news_articles` and `summary` .
+
+![Batch Summarization](https://cdn.hashnode.com/res/hashnode/image/upload/v1681148460089/1b768c55-84a1-48f7-9c85-7abad5c1bebf.png align="center")
 
 # Conclusion
 
