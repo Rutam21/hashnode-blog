@@ -1,9 +1,9 @@
 ---
-title: "MindsDB Playground App: A Comprehensive Guide"
+title: "Introducing MindsDB Playground: Your all-in-one MindsDB Companion App"
 seoTitle: "MindsDB Playground"
 datePublished: Sun Apr 30 2023 07:54:43 GMT+0000 (Coordinated Universal Time)
 cuid: clh3490kb00010amkgzvbe8v6
-slug: mindsdb-playground-app-a-comprehensive-guide
+slug: introducing-mindsdb-playground-your-all-in-one-mindsdb-companion-app
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1682708946739/8db8f694-afb5-4b85-8365-1b760d38543d.png
 tags: nlp, openai, mindsdb, automl, mindsdbhackathon
 
