@@ -74,7 +74,7 @@ CREATE MODEL MODEL_NAME
 PREDICT Target_Column_Name
 USING
     engine = 'name_of_the_engine',
-    model-name = 'name_of_the_model',
+    model_name = 'name_of_the_model',
     max_tokens = number_of_tokens,              
     prompt_template = 'Summarize the following text in complete sentences. text:{{news_articles}}';
 ```
@@ -123,11 +123,11 @@ Please note that we have to wait until the status is `complete` before we can st
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681129288159/40e7f6fa-ef92-420d-bf90-574385013362.png align="center")
 
-# Making Text Summarization
+# Summarizing Texts
 
 The model is now ready to summarize long texts/paragraphs into shorter versions making our reading lives easier. We will see two ways in which we can do this one after the other.
 
-### Making a Single Summarization
+### Summarizing a Single Text
 
 Here we will provide the model with a larger piece of text and then ask it to return us a short summary of it. Let's see how we can do that below.
 
@@ -144,7 +144,7 @@ So we have provided a long text to the model now. Once the query is executed suc
 
 ![Single Summarization](https://cdn.hashnode.com/res/hashnode/image/upload/v1681147040523/211efd5d-6ffc-49fd-aaf1-9f651eb40fe7.png align="center")
 
-### Making Batch Summarizations
+### Summarizing a Batch of Texts
 
 Now we will try to summarize multiple news articles at once. For this, we will feed the `news_articles` column from the `BBCNews` table as input and add their summaries next to them and return this whole data as an output table.
 
