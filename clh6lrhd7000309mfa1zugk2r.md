@@ -194,7 +194,7 @@ Both of the models have completed their training and are ready for use now. You 
 
 You will first start by passing a single text to the model and asking it to determine if the text was a `SPAM` or a `HAM`.
 
-#### Using OpenAI GP-4 Model
+#### Using OpenAI GPT-4 Model
 
 The query to fetch the type of text using the OpenAI model will be as follows.
 
