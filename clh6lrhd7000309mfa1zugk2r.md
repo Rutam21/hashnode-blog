@@ -185,3 +185,87 @@ WHERE name='hf_spam_detect';
 You can see the status of the `hf_spam_detect` as shown below.
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1683058425105/765809a3-0b7d-4354-8d51-d360dd0ee49d.png align="center")
+
+# Detecting Spam
+
+Both of the models have completed their training and are ready for use now. You can try them out one by one by following the steps below.
+
+### Detecting in a Single Text
+
+You will first start by passing a single text to the model and asking it to determine if the text was a `SPAM` or a `HAM`.
+
+#### Using OpenAI GP-4 Model
+
+The query to fetch the type of text using the OpenAI model will be as follows.
+
+```sql
+SELECT Text,Type FROM openai_spam_detect 
+WHERE Text="Our records show you overpaid for (a product or service). Kindly supply your bank routing and account number to receive your refund.";
+```
+
+This should return you two columns, one with the `Text` that you provided and the other with the `Type` of the text.
+
+![OpenAI Single Text Detection](https://cdn.hashnode.com/res/hashnode/image/upload/v1683058929089/710edd98-d2a9-4e27-95cd-80adc54dac44.png align="center")
+
+As you can see, the model has correctly marked the text as `SPAM`.
+
+#### Using the HuggingFace Model
+
+Now you can use the SQL statement below to query the result from the HuggingFace Model.
+
+```sql
+SELECT Text,Type FROM hf_spam_detect 
+WHERE Text="The meeting has been rescheduled to 6 PM. Kindly join on time.";
+```
+
+Again, this will also return you the two columns, one with the `Text` and the other with its `Type`.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1683059239739/53bda265-f22e-4600-9a62-564bcd9cbdf4.png align="center")
+
+This model has also correctly marked the text as `HAM` .
+
+### Detecting in a Batch of Texts
+
+Now it's time for you to detect the type for a batch of texts. You will now use the table to carry out this step. You will `JOIN` the table with the respective model to create a `View` that returns you the texts in the table along with their types i.e., `SPAM` or `HAM` returned from the model.
+
+#### Using the OpenAI GPT-4 model
+
+You can use the following SQL statement to fetch the types for the first 10 records of the table.
+
+```sql
+SELECT input.Text, output.Type, input.Label
+FROM files.Spam as input
+JOIN openai_spam_detect as output LIMIT 10;
+```
+
+This will return you the three columns i.e., the first column with the `Text` , the second column with the `Type` determined by the model and the last column with the pre-determined labels for the text so that you can compare if the model performed better or not.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1683060030489/2bf1de46-03cb-406f-b75f-2a489b157500.png align="center")
+
+As you can see, the type determined by the model matches the pre-determined labels for most of the text and the model has even correctly determined the type for one of the texts which had the wrong pre-determined label.
+
+#### Using the HuggingFace Model
+
+Now you can run a similar statement for the HuggingFace model by just replacing the model name.
+
+```sql
+SELECT input.Text, output.Type, input.Label
+FROM files.Spam as input
+JOIN hf_spam_detect as output LIMIT 10;
+```
+
+This will also return the three columns containing the first 10 `Text` from the table, their `Type` determined by the model and the pre-determined `Label` .
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1683060744504/0311e7c2-891c-4dd0-b2b9-5b40bd386345.png align="center")
+
+This model has also correctly determined the `Type` for one of the rows that had a wrong pre-determined `Label`.
+
+# Conclusion
+
+In this article, you learnt how you can use MindsDB and its integration with OpenAI and HuggingFace to create a robust NLP model that is capable of determining whether a given text is `SPAM` or `HAM` . You also came to know how you can upload a dataset to MindsDB Cloud and create a Table out of it.
+
+The scope of MindsDB in the field of NLP is unrestricted and ever-growing. So, feel free to explore it with your own ideas and innovations to build the best apps/tools for yourself and the community.
+
+Lastly, before you close this page, please leave your feedback or review in the comments below and don't forget to drop a like if this article helped you learn something new today.
+
+[![Sponsor Banner](https://cdn.hashnode.com/res/hashnode/image/upload/v1683061256097/8326a892-9337-40b0-a648-0fc95d05df5b.png align="center")](https://github.com/sponsors/Rutam21)
