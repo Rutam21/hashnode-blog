@@ -4,7 +4,7 @@ datePublished: Tue May 02 2023 18:28:16 GMT+0000 (Coordinated Universal Time)
 cuid: clh6lrhd7000309mfa1zugk2r
 slug: spam-detection-using-mindsdb-with-openai-gpt-4-or-huggingface
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1683021539043/bfd1b33b-d704-4bbf-a7c3-1815726b9899.png
-tags: nlp, openai, huggingface, mindsdb, mindsdbhackathon
+tags: machine-learning, nlp, openai, huggingface, mindsdb
 
 ---
 
