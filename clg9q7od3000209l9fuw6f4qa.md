@@ -5,7 +5,7 @@ datePublished: Sun Apr 09 2023 18:16:27 GMT+0000 (Coordinated Universal Time)
 cuid: clg9q7od3000209l9fuw6f4qa
 slug: text-summarization-using-mindsdb-and-openai-gpt-4
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1681063781698/4c8717d9-e7ab-4e7b-8cee-ef116bc65e21.png
-tags: 2articles1week, openai, mindsdb, gpt-4, mindsdbhackathon
+tags: machine-learning, 2articles1week, openai, mindsdb, gpt-4
 
 ---
 
